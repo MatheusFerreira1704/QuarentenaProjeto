@@ -12,5 +12,6 @@ public class JpaUtilTest {
 	JpaUtil.getEntityManager();	
 	}
 	
+	// COMENTARIO TESTE
 	
 }
