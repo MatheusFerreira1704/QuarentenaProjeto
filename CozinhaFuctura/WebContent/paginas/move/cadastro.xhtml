@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<h:form>
+
+		<p:panelGrid columns="2">
+
+			<h:outputText value="Nome: " />
+			<p:inputText value="#{CadastroBean.chefe.nome}" />
+			
+			<h:outputText value="Login: " />
+			<p:inputText value="#{CadastroBean.chefe.login}" />
+			
+			<h:outputText value="Senha: " />
+			<p:inputText value="#{CadastroBean.chefe.senha}" />
+
+			<h:outputText value="País: " />
+			<p:inputText value="#{CadastroBean.chefe.pais}" />
+
+			<h:outputText value="Especialidade: " />
+			<p:inputText value="#{CadastroBean.chefe.especialidade}" />
+
+	<p:commandButton value="Cadastrar" update="@form"
+				actionListener="#{CadastroBean.chefDAO.cadastrar}"/>
+
+		</p:panelGrid>
+
+	</h:form>
+</h:body>
+</html>

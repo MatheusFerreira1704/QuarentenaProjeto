@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+    <h1> Olá Chef, faça login.</h1>
+    </h:head>
+ 
+    <h:body>
+    
+ 	<h:form>
+ 	<p:panelGrid columns="2"> 
+				<h:outputLabel value="Login:" />
+				<p:inputText/>
+				<h:outputLabel value="Senha:" />
+				<p:inputText/>
+				<h:outputLabel value="#{LoginBean.mensagem}" style="color: red" />
+				<p:commandButton value="Entrar" update="@form"
+				actionListener="#{LoginBean.logar}" />	
+		</p:panelGrid>
+		<h2>Ainda não é membro? Se cadastre, é só clickar no botão a baixo.</h2>
+		<p:commandButton value="Cadastrar"
+				actionListener="#{LoginBean.abrirCadastro}" />
+ 	</h:form> 
+    </h:body>
+</html>
