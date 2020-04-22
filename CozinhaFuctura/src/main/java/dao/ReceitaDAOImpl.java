@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import entidade.Chefe;
 import entidade.Receitas;
 import util.JpaUtil;
 
@@ -14,6 +13,10 @@ public class ReceitaDAOImpl implements ReceitaDAO {
 
 	EntityManager ent;
 	EntityTransaction tx = ent.getTransaction();
+	
+	public ReceitaDAOImpl() {
+		
+	}
 	
 	public boolean inserirReceita(Receitas receita) {
 		try {

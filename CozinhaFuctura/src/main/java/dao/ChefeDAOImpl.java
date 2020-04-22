@@ -5,71 +5,89 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import entidade.Chefe;
-import entidade.Receitas;
+import util.JpaUtil;
 
 public class ChefeDAOImpl implements ChefeDAO {
 
-	private EntityManager ent;
+	EntityManager ent;
+	EntityTransaction tx = ent.getTransaction();
+	
+	public ChefeDAOImpl() {
 
-	public ChefeDAOImpl(EntityManager ent) {
-		this.ent = ent;
 	}
-
-	public boolean inserir (Chefe chefe) {
-
+	
+	public boolean inserirChefe(Chefe chefe) {
 		try {
-			EntityTransaction tx = ent.getTransaction();
+			this.ent = JpaUtil.getEntityManager();
+			tx = ent.getTransaction();
 			tx.begin();
 			ent.persist(chefe);
 			tx.commit();
-		} catch (Exception e) {
+			return true;
+		}catch(Exception e) {
+			if(ent.isOpen()) {
+				tx.rollback();
+			}
+		}finally {
+			if(ent.isOpen()) {
+			ent.close();	
+			}
+		}	
+		return false;
+	}
 
-			ent.getTransaction().rollback();
+
+	public boolean editarChefe(Chefe chefe) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			tx = ent.getTransaction();
+			tx.begin();
+			ent.merge(chefe);
+			tx.commit();
+			return true;
+		}catch(Exception e) {
+			if(ent.isOpen()) {
+				tx.rollback();
+			}
+		}finally {
+			if(ent.isOpen()) {
+			ent.close();	
+			}
 		}
-		
-		return true;
+		return false;
 	}
 
-	public void editarChefe(Chefe chefe) {
-		EntityTransaction tx = ent.getTransaction();
-		tx.begin();
-		ent.merge(chefe);
-		tx.commit();
 
-	}
-	
-
-	public void remover(Chefe chefe) {
-		EntityTransaction tx = ent.getTransaction();
-		tx.begin();
-		ent.remove(chefe);
-		tx.commit();
-	}
-
-	
-	public Chefe pesquisar (String nome) {
-		Chefe chefe = ent.find(Chefe.class, nome);
-		
-		return chefe;
+	public boolean removerChefe(Chefe chefe) {
+		try {
+			this.ent = JpaUtil.getEntityManager();
+			tx = ent.getTransaction();
+			tx.begin();
+			ent.remove(chefe);
+			tx.commit();
+			return true;
+		}catch(Exception e) {
+			if(ent.isOpen()) {
+				ent.close();	
+				}
+		}
+		return false;
 	}
 
-	public void editarReceita(Receitas receita) {
-		EntityTransaction tx = ent.getTransaction();
-		tx.begin();
-		ent.merge(receita);
-		tx.commit();
-
-	}
 
 	public List<Chefe> listarChefes() {
 		Query query = ent.createQuery("from Chefe c");
 		List<Chefe> chefes = query.getResultList();
 		return chefes;
+	}
+
+
+	
+	public Chefe pesquisar(String login) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

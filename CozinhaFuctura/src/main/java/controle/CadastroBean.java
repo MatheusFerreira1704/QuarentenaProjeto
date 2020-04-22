@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 
 import dao.ChefeDAOImpl;
 import entidade.Chefe;
-import util.JpaUtil;
 
 @ManagedBean (name="CadastroBean")
 @SessionScoped
@@ -20,17 +19,17 @@ public class CadastroBean {
 	private ChefeDAOImpl chefDAO;
 	
 	
-	private static final String LOGIN = "cadastro.xhtml";
+	private static final String LOGIN = "entrar.xhtml";
 	
 	public CadastroBean(){
 		
 		
 		this.chefe = new Chefe();
-		this.chefDAO = new ChefeDAOImpl(JpaUtil.getEntityManager());
+		
 	}
 	
 	public void cadastrar() throws IOException{
-		if (this.chefDAO.inserir(this.chefe)) {
+		if (this.chefDAO.inserirChefe(this.chefe)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Sucesso !!!"));
 			abrirLogin();
@@ -43,6 +42,15 @@ public class CadastroBean {
 	
 	public void abrirLogin() throws IOException{
 		FacesContext.getCurrentInstance().getExternalContext().redirect(LOGIN);
+	}
+	
+
+	public Chefe getChefe() {
+		return chefe;
+	}
+
+	public void setChefe(Chefe chefe) {
+		this.chefe = chefe;
 	}
 	
 }

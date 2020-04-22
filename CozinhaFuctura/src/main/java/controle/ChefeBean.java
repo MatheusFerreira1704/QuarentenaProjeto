@@ -31,14 +31,14 @@ public class ChefeBean {
 		this.listarechef = new ArrayList<Chefe>();
 		
 		
-		this.chefDAO = new ChefeDAOImpl(JpaUtil.getEntityManager());
+		this.chefDAO = new ChefeDAOImpl();
 		
 		this.listarechef = this.chefDAO.listarChefes();	
 	}
 	
 	
 	public void Cadastrar() throws IOException{
-		if (this.chefDAO.inserir(this.chefe)) {
+		if (this.chefDAO.inserirChefe(this.chefe)) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Sucesso !!!"));
 		} else {

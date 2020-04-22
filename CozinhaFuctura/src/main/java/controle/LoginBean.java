@@ -26,7 +26,8 @@ public class LoginBean {
 	private String mensagem;
 
 	public LoginBean() {
-		this.chefeDAO = new ChefeDAOImpl(JpaUtil.getEntityManager());
+		this.chefeDAO = new ChefeDAOImpl();
+		this.chefeL = new Chefe();
 	}
 
 	public void logar() throws IOException {
